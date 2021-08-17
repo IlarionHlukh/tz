@@ -116,13 +116,13 @@ include("layout.php");
             <input class="form-control" placeholder="Назва" name="title" type="text" value="<?php echo $title; ?>"required>
         </div>
         <div class="field">
-            <input id="year" class="form-control" placeholder="Рік" name="year" type="number" min= "1850" max="2021" value="<?php echo $year; ?>"required>
+            <input id="year" class="select-css2" placeholder="Рік" name="year" type="number" min= "1850" max="2021" value="<?php echo $year; ?>"required>
         </div>
         <div class="field">
             <input id="format" class="form-control" placeholder="Формат" name="format" type="text" value="<?php echo $format; ?>"required>
         </div>
         <div class="field">
-            <input id="actors" class="form-control" placeholder="Перелік акторів" name="actors" type="text" value="<?php echo $actors; ?>" required>
+            <input id="actors" class="select-css" placeholder="Перелік акторів" name="actors" type="text" value="<?php echo $actors; ?>" required>
         </div>
         <p>Вибрати картинку</p>
         <div class="field">
