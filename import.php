@@ -12,20 +12,24 @@ if (isset($_FILES['import'])) {
     $file_type = $_FILES['import']['type'];
     $file_ext = strtolower(end(explode('.', $_FILES['import']['name'])));
 
-    $extensions = array('txt', 'xls', 'doc');
+    $extensions = array('txt');
 
     if (in_array($file_ext, $extensions) === false) {
-        $errors[] = "extension not allowed, please choose a JPEG or PNG file.";
+        $errors[] = "Тільки формат txt!";
+        echo "<script>alert('Тільки формат txt!')</script>";
+        echo"<script>window.open('films.php','_self')</script>";
     }
 
     if ($file_size > 2097152) {
-        $errors[] = 'File size must be excately 2 MB';
+        $errors[] = 'Файл занадто великий!. Не більше 2мб';
+        echo "<script>alert('Файл занадто великий!. Не більше 2мб')</script>";
+        echo"<script>window.open('films.php','_self')</script>";
     }
 
     if (empty($errors) == true) {
         move_uploaded_file($file_tmp, "files/" . $file_name);
-        echo "Успішно внесено!";
-        header("Location: films.php");
+        echo "<script>alert('Успішно внесено!')</script>";
+        echo"<script>window.open('films.php','_self')</script>";
     } else {
         print_r($errors);
     }

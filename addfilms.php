@@ -10,15 +10,29 @@ if(!$_SESSION['userid'])
 ?>
 
 <?php
+
+function array_is_unique($array) {
+	return array_unique($array) == $array;
+}
+
 error_reporting(0);
 include("db_conection.php");
 
-if(isset($_POST['film_save']))
+if(isset($_POST['film_save']) && !empty(trim($_POST['title'])))
 {
-$title = $_POST['title'];
-$year = $_POST['year'];
-$format = $_POST['format'];
-$actors = $_POST['actors'];
+$title = htmlspecialchars(trim($_POST['title']));
+$year = htmlspecialchars($_POST['year']);
+$format = htmlspecialchars($_POST['format']);
+$actors = htmlspecialchars($_POST['actors']);
+
+$finish= explode(" ",$actors);
+
+if(empty(array_is_unique($finish))){
+	echo "<script>alert('Уппс)... Присутні дубльовані записи!!!')</script>";
+	echo"<script>window.open('films.php','_self')</script>";
+	exit();
+}
+
 
 $stmt = $db->prepare("select * from films WHERE title='$title'");
 $stmt->execute();
@@ -63,7 +77,8 @@ $itempic = rand(1000,1000000).".".$imgExt;
 
 
 }
-
+echo "<script>alert('Помилка, перевірте коректність даних!')</script>";
+echo "<script>window.open('films.php','_self')</script>";
 ?>
 
 

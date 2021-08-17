@@ -45,7 +45,7 @@ if(isset($_GET['delete_id']) && !empty($_GET['type_image']))
     </div>
     <div class="container">
         <a class="btn btn-info" id = "import" href="#openModal_import" role="button">Імпорт з файлу</a>
-        <a class="btn btn-info" id = "btn_modal"  href="#openModal" role="button">Добавити фільм</a>
+        <a class="btn btn-info" id = "btn_modal"  href="#openModal" role="button">Додати фільм</a>
     </div>
     <br />
     <br />
@@ -54,13 +54,13 @@ if(isset($_GET['delete_id']) && !empty($_GET['type_image']))
             <thead>
             <tr>
                 <th>ID</th>
-                <th></th>
+                <th data-orderable="false"></th>
                 <th>Назва</th>
                 <th>Рік</th>
                 <th>Формат</th>
                 <th>Перелік акторів</th>
                 <th>Дата внесення</th>
-                <th>Дії</th>
+                <th data-orderable="false">Дії</th>
 
             </tr>
             </thead>
@@ -81,7 +81,7 @@ if(isset($_GET['delete_id']) && !empty($_GET['type_image']))
                         <td>
                             <center>
                                 <?php
-                                if($image === null)
+                                if(empty($image))
                                 {
                                 ?>
                                     <img src="assets/img/default.jpg" class="img img-rounded"  width="90" height="60" />
@@ -140,26 +140,31 @@ if(isset($_GET['delete_id']) && !empty($_GET['type_image']))
             </div>
             <div class="modal-body">
                 <form enctype="multipart/form-data" method="post" action="addfilms.php">
+                    <div id="prompt"></div>
                     <div class="field">
                         <input class="form-control" placeholder="Назва" name="title" type="text" required>
                     </div>
                     <div class="field">
-                        <input id="year" class="form-control" placeholder="Рік" name="year" type="text" required>
+                        <input id="year" class="select-css2" placeholder="Рік" name="year" type="number" min ="1850" max="2021" required>
                     </div>
                     <div class="field">
-                        <input id="format" class="form-control" placeholder="Формат" name="format" type="text" required>
+                        <select name="format" class="select-css"> <!--Supplement an id here instead of using 'name'-->
+                            <option selected disabled>Формат</option>
+                            <option value="VHS">VHS</option>
+                            <option value="DVD">DVD</option>
+                            <option value="Blu-Ray">Blu-Ray</option>
+                        </select>
                     </div>
                     <div class="field">
-                        <input id="actors" class="form-control" placeholder="Перелік акторів" name="actors" type="text" required>
+                        <input id="actors" class="form-control" placeholder="Перелік акторів" name="actors" type="text" pattern="^(\w+[, ]+)*\w+$" required>
                     </div>
                     <p>Вибрати картинку</p>
                     <div class="field">
                         <input class="form-control"  type="file" name="image" accept="image/*" required>
                     </div>
-
             </div>
             <div class="modal-footer">
-                <button class="btn_mod" name="film_save">Добавити</button>
+                <button class="btn_mod" name="film_save">Додати</button>
                 </form>
             </div>
         </div>
@@ -189,19 +194,121 @@ if(isset($_GET['delete_id']) && !empty($_GET['type_image']))
 </div>
 <script src="assets/js/script.js"></script>
 <script type="text/javascript" charset="utf-8">
-    $(document).ready(function() {
-        $('#example').DataTable( {
-            autoWidth: true,
-            columnDefs: [
-                {
-                    targets: ['_all'],
-                    className: 'mdc-data-table__cell'
-                }
-            ],
+        $.extend( $.fn.dataTableExt.oSort, {
+            "uk-pre": function ( a ) {
+                var special_letters = {
+                    "А": "Aa",
+                    "а": "aa",
+                    "Б": "Ab",
+                    "б": "ab",
+                    "В": "Ca",
+                    "в": "ca",
+                    "Г": "Cb",
+                    "г": "cb",
+                    "Ґ": "Da",
+                    "ґ": "da",
+                    "Д": "Db",
+                    "д": "db",
+                    "Е": "Ea",
+                    "е": "ea",
+                    "Є": "Eb",
+                    "є": "eb",
+                    "Ж": "Ec",
+                    "ж": "ec",
+                    "З": "Ia",
+                    "з": "ia",
+                    "И": "Ib",
+                    "и": "ib",
+                    "І": "Na",
+                    "і": "na",
+                    "Ї": "Nb",
+                    "ї": "nb",
+                    "Й": "Oa",
+                    "й": "oa",
+                    "К": "Ra",
+                    "к": "ra",
+                    "Л": "Rb",
+                    "л": "rb",
+                    "М": "Sa",
+                    "м": "sa",
+                    "Н": "Sb",
+                    "н": "sb",
+                    "О": "Ta",
+                    "о": "ta",
+                    "П": "Tb",
+                    "п": "tb",
+                    "Р": "Ua",
+                    "р": "ua",
+                    "С": "Ub",
+                    "с": "ub",
+                    "Т": "Uc",
+                    "т": "uc",
+                    "У": "Uc",
+                    "у": "Ya",
+                    "Ф": "ya",
+                    "ф": "Yb",
+                    "Х": "yb",
+                    "х": "Za",
+                    "Ц": "za",
+                    "ц": "Zb",
+                    "Ч": "zb",
+                    "ч": "zba",
+                    "Ш": "zbc",
+                    "ш": "zbd",
+                    "Щ": "zbe",
+                    "щ": "zca",
+                    "Э": "zcb",
+                    "э": "zcv",
+                    "Я": "zcd",
+                    "я": "zde"
+                };
+                for (var val in special_letters)
+                    a = a.split(val).join(special_letters[val]).toLowerCase();
+                return a;
+            },
+
+            "uk-asc": function ( a, b ) {
+                return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+            },
+
+            "uk-desc": function ( a, b ) {
+                return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+            }
+
         } );
-    } );
+
+        $('#example').dataTable( {
+            columnDefs: [
+                { type: 'uk',
+                  targets: ['_all'],
+                 className: 'mdc-data-table__cell'
+                }
+            ]
+        } );
 </script>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.js"></script>
+<script>
+    $( document ).ready(function(){
+        $( "#actors" ).change(function(){
+            var str = document.getElementById('actors').value.trim();
+
+            str2 = str.replace(/\s+/g, '');
+            console.log(str2);
+            var strArray = new Array();
+            strArray = str2.split(",");
+            findDuplicates = arr => arr.filter((item, index) => arr.indexOf(item) != index);
+            var last = findDuplicates(strArray);
+            if(last.length > 0){
+                $('.btn_mod').attr('disabled','disabled');
+                $('#prompt').removeClass().addClass('error').html('Присутні дубльовані записи!');
+            }else{
+                $('.btn_mod').removeAttr('disabled');
+                $('#prompt').removeClass('error');
+            }
+
+        });
+    });
+</script>
 </body>
 </html>

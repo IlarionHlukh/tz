@@ -23,12 +23,12 @@ include("layout.php");
 	
 	
 	
-	if(isset($_POST['film_save']))
+	if(isset($_POST['film_save']) && !empty(trim($_POST['title'])))
 	{
-        $title = $_POST['title'];
-        $year = $_POST['year'];
-        $format = $_POST['format'];
-        $actors = $_POST['actors'];
+        $title = htmlspecialchars(trim($_POST['title']));
+        $year = htmlspecialchars($_POST['year']);
+        $format = htmlspecialchars($_POST['format']);
+        $actors = htmlspecialchars($_POST['actors']);
 		
 
         $imgFile  = $_FILES['image_edit']['name'];
@@ -116,7 +116,7 @@ include("layout.php");
             <input class="form-control" placeholder="Назва" name="title" type="text" value="<?php echo $title; ?>"required>
         </div>
         <div class="field">
-            <input id="year" class="form-control" placeholder="Рік" name="year" type="text" value="<?php echo $year; ?>"required>
+            <input id="year" class="form-control" placeholder="Рік" name="year" type="number" min= "1850" max="2021" value="<?php echo $year; ?>"required>
         </div>
         <div class="field">
             <input id="format" class="form-control" placeholder="Формат" name="format" type="text" value="<?php echo $format; ?>"required>
