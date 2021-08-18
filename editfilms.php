@@ -112,6 +112,7 @@ include("layout.php");
 						  
 						  </div>
     <form enctype="multipart/form-data" method="post">
+	<div id="prompt"></div>
         <div class="field">
             <input class="form-control" placeholder="Назва" name="title" type="text" value="<?php echo $title; ?>"required>
         </div>
