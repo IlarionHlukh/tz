@@ -11,9 +11,6 @@ if(!$_SESSION['userid'])
 
 <?php
 
-function array_is_unique($array) {
-	return array_unique($array) == $array;
-}
 
 error_reporting(0);
 include("db_conection.php");
@@ -24,14 +21,6 @@ $title = htmlspecialchars(trim($_POST['title']));
 $year = htmlspecialchars($_POST['year']);
 $format = htmlspecialchars($_POST['format']);
 $actors = htmlspecialchars($_POST['actors']);
-
-$finish= explode(" ",$actors);
-
-if(empty(array_is_unique($finish))){
-	echo "<script>alert('Уппс)... Присутні дубльовані записи!!!')</script>";
-	echo"<script>window.open('films.php','_self')</script>";
-	exit();
-}
 
 
 $stmt = $db->prepare("select * from films WHERE title='$title'");
