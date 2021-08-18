@@ -257,8 +257,8 @@ if(isset($_GET['delete_id']) && !empty($_GET['type_image']))
                     "ш": "zbd",
                     "Щ": "zbe",
                     "щ": "zca",
-                    "Э": "zcb",
-                    "э": "zcv",
+                    "Ю": "zcb",
+                    "ю": "zcv",
                     "Я": "zcd",
                     "я": "zde"
                 };
