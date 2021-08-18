@@ -138,4 +138,26 @@ include("layout.php");
         </div>
     </div>
 </section>
+<script>
+    $(document).ready(function(){
+        $( "#actors" ).change(function(){
+            var str = document.getElementById('actors').value.trim();
+
+            str2 = str.replace(/\s+/g, '');
+            console.log(str2);
+            var strArray = new Array();
+            strArray = str2.split(",");
+            findDuplicates = arr => arr.filter((item, index) => arr.indexOf(item) != index);
+            var last = findDuplicates(strArray);
+            if(last.length > 0){
+                $('.btn_mod').attr('disabled','disabled');
+                $('#prompt').removeClass().addClass('error').html('Присутні дубльовані записи!');
+            }else{
+                $('.btn_mod').removeAttr('disabled');
+                $('#prompt').removeClass('error');
+            }
+
+        });
+    });
+</script>
 </html>
