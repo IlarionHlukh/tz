@@ -11,7 +11,7 @@ include("layout.php")
                 <h1>Moviesaver - портал для зберігання фільмів</h1>
                 <p class="lead">Просто добав свої фільми в надійне місце, з доступом з будь-якого пристрою та місця!</p>
                 <p class="lead">
-                    <a href="films.php" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Добавити фільм</a>
+                    <a href="films.php" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Додати фільм</a>
                 </p>
             </main>
         </div>
