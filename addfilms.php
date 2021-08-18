@@ -10,8 +10,6 @@ if(!$_SESSION['userid'])
 ?>
 
 <?php
-
-
 error_reporting(0);
 include("db_conection.php");
 
@@ -21,7 +19,6 @@ $title = htmlspecialchars(trim($_POST['title']));
 $year = htmlspecialchars($_POST['year']);
 $format = htmlspecialchars($_POST['format']);
 $actors = htmlspecialchars($_POST['actors']);
-
 
 $stmt = $db->prepare("select * from films WHERE title='$title'");
 $stmt->execute();
