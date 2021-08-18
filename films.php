@@ -156,7 +156,7 @@ if(isset($_GET['delete_id']) && !empty($_GET['type_image']))
                         </select>
                     </div>
                     <div class="field">
-                        <input id="actors" class="form-control" placeholder="Перелік акторів" name="actors" type="text" pattern="^(\w+[, ]+)*\w+$" required>
+                        <input id="actors" class="form-control" placeholder="Перелік акторів" name="actors" type="text" title= "Писати перелік акторів через кому! В іншому випадку система рахуватиме написане як одну людину." pattern="^(\w+[, ]+)*\w+$" required>
                     </div>
                     <p>Вибрати картинку</p>
                     <div class="field">
