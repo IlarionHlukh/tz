@@ -18,12 +18,14 @@ if (isset($_FILES['import'])) {
         $errors[] = "Тільки формат txt!";
         echo "<script>alert('Тільки формат txt!')</script>";
         echo"<script>window.open('films.php','_self')</script>";
+        exit();
     }
 
     if ($file_size > 2097152) {
         $errors[] = 'Файл занадто великий!. Не більше 2мб';
         echo "<script>alert('Файл занадто великий!. Не більше 2мб')</script>";
         echo"<script>window.open('films.php','_self')</script>";
+        exit();
     }
 
     if (empty($errors) == true) {
